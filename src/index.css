@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+.dark-theme {
+  background-color: #0f172a !important; 
+}
+.dark-theme .bg-white { background-color: #1e293b !important; border-color: #334155 !important; }
+.dark-theme .bg-slate-50 { background-color: #0f172a !important; border-color: #334155 !important; }
+.dark-theme .bg-slate-100 { background-color: #1e293b !important; border-color: #334155 !important; }
+.dark-theme .bg-slate-50\/30 { background-color: #0f172a !important; }
+.dark-theme .bg-slate-50\/20 { background-color: transparent !important; }
+.dark-theme .text-slate-800, .dark-theme .text-slate-900 { color: #f8fafc !important; }
+.dark-theme .text-slate-700 { color: #e2e8f0 !important; }
+.dark-theme .text-slate-600 { color: #cbd5e1 !important; }
+.dark-theme .text-slate-500 { color: #94a3b8 !important; }
+.dark-theme .border-slate-200 { border-color: #334155 !important; }
+.dark-theme .border-slate-100 { border-color: #1e293b !important; }
+.dark-theme .text-slate-400 { color: #64748b !important; }
+
+/* Custom Quill Dark Mode Overrides */
+.dark-theme .ql-editor { color: #f8fafc !important; }
+.dark-theme .ql-toolbar { background: #1e293b !important; border-bottom: 1px solid #334155 !important; }
+.dark-theme .ql-stroke { stroke: #cbd5e1 !important; }
+.dark-theme .ql-fill { fill: #cbd5e1 !important; }
+.dark-theme .ql-picker { color: #cbd5e1 !important; }
+.dark-theme .ql-picker-options { background: #1e293b !important; border-color: #334155 !important; }
+
+/* Modal and Overlays */
+.dark-theme .bg-white\/90 { background-color: rgba(30, 41, 59, 0.9) !important; }
+.dark-theme input:not([type="checkbox"]), .dark-theme select, .dark-theme textarea { background-color: #0f172a !important; color: #f8fafc !important; border-color: #334155 !important; }
