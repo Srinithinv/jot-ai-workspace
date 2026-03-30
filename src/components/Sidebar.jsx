@@ -29,7 +29,7 @@ const Sidebar = ({ activeTool, setActiveTool }) => {
         <span className="font-bold text-2xl text-slate-800 tracking-tight leading-none text-center">Jot AI</span>
       </div>
       
-      <nav className="flex flex-row md:flex-col gap-1 w-max md:w-full px-2 md:px-3 flex-1 items-center md:overflow-y-auto md:overflow-x-hidden pt-1 md:pt-0 pb-1 md:pb-0">
+      <nav className="flex flex-row md:flex-col gap-1 w-max md:w-full px-2 md:px-3 flex-1 items-center md:overflow-y-auto md:overflow-x-hidden pt-1 md:pt-0 pb-1 md:pb-0 no-scrollbar">
         {tools.map(tool => {
           const Icon = tool.icon;
           const isActive = activeTool === tool.id;
