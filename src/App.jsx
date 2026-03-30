@@ -14,17 +14,11 @@ function Workspace({ user }) {
   const [selectionRange, setSelectionRange] = useState(null);
   const [activeTool, setActiveTool] = useState('grammar');
   const [isDark, setIsDark] = useState(() => localStorage.getItem('zeno_theme') === 'dark');
+  const [isMobileAIPanelOpen, setIsMobileAIPanelOpen] = useState(false);
   const quillRef = useRef(null);
 
-  // Persist Document
-  useEffect(() => {
-    localStorage.setItem('zeno_document', content);
-  }, [content]);
-
-  // Persist Theme
-  useEffect(() => {
-    localStorage.setItem('zeno_theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+  useEffect(() => { localStorage.setItem('zeno_document', content); }, [content]);
+  useEffect(() => { localStorage.setItem('zeno_theme', isDark ? 'dark' : 'light'); }, [isDark]);
 
   const handleSelection = (range, source, editor) => {
     if (range && range.length > 0) {
@@ -47,9 +41,12 @@ function Workspace({ user }) {
   };
 
   return (
-    <div className={`flex h-screen w-full transition-colors duration-500 font-sans overflow-hidden ${isDark ? 'dark-theme bg-slate-900' : 'bg-slate-50'}`}>
-      <Sidebar activeTool={activeTool} setActiveTool={setActiveTool} />
-      <div className="flex-1 flex overflow-hidden">
+    <div className={`flex flex-col md:flex-row h-[100dvh] w-full transition-colors duration-500 font-sans overflow-hidden ${isDark ? 'dark-theme bg-slate-900' : 'bg-slate-50'}`}>
+      <Sidebar 
+        activeTool={activeTool} 
+        setActiveTool={(id) => { setActiveTool(id); setIsMobileAIPanelOpen(true); }} 
+      />
+      <div className="flex-1 flex overflow-hidden mb-[72px] md:mb-0 relative">
         <Editor 
           content={content} 
           setContent={setContent} 
@@ -64,6 +61,8 @@ function Workspace({ user }) {
           editorContent={content}
           onReplace={handleReplaceSelection}
           setContent={setContent}
+          isMobileOpen={isMobileAIPanelOpen}
+          setIsMobileOpen={setIsMobileAIPanelOpen}
         />
       </div>
     </div>
@@ -73,7 +72,6 @@ function Workspace({ user }) {
 function App() {
   const [user, setUser] = useState(undefined);
 
-  // Global Auth Observer to verify Cloud Token
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -81,10 +79,9 @@ function App() {
     return unsubscribe;
   }, []);
 
-  // Show a sleek loading spinner while waiting for Firebase ping to resolve
   if (user === undefined) {
     return (
-      <div className="h-screen w-full bg-slate-50 flex flex-col items-center justify-center gap-4 animate-in fade-in">
+      <div className="h-[100dvh] w-full bg-slate-50 flex flex-col items-center justify-center gap-4 animate-in fade-in">
         <Loader2 className="w-10 h-10 animate-spin text-teal-600" />
         <p className="text-slate-500 font-bold text-sm tracking-widest uppercase">Connecting to Cloud Backend</p>
       </div>
@@ -93,7 +90,6 @@ function App() {
 
   return (
     <Routes>
-      {/* Route Guards: Completely protect the workspace from unauthenticated URLs */}
       <Route path="/" element={user ? <Navigate to="/app" /> : <Navigate to="/login" />} />
       <Route path="/login" element={user ? <Navigate to="/app" /> : <Auth />} />
       <Route path="/signup" element={user ? <Navigate to="/app" /> : <Auth />} />

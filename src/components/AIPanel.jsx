@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Sparkles, ShieldCheck, Zap, Settings2, RefreshCw, Loader2, ArrowRight, CheckSquare, AlignLeft, Languages, Maximize, BarChart2, Ghost, BookOpen, Search } from 'lucide-react';
+import { Sparkles, ShieldCheck, Zap, Settings2, RefreshCw, Loader2, ArrowRight, CheckSquare, AlignLeft, Languages, Maximize, BarChart2, Ghost, BookOpen, Search, X } from 'lucide-react';
 import { rewriteText, humanizeText, checkOriginality, checkGrammar, summarizeText, translateText, expandText, detectTone, autoComplete, analyzeReadability, optimizeSEO } from '../lib/gemini';
 
 const paraphraseTones = ['Standard', 'Fluency', 'Formal', 'Academic', 'Creative', 'Shorten'];
 const summaryLengths = ['Short', 'Medium', 'Long'];
 const translateLanguages = ['Spanish', 'French', 'German', 'Tamil', 'Hindi', 'Japanese', 'Chinese', 'Arabic', 'Russian'];
 
-const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent }) => {
+const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent, isMobileOpen, setIsMobileOpen }) => {
   // Grammar State
   const [grammarReport, setGrammarReport] = useState(null);
   const [isCheckingGrammar, setIsCheckingGrammar] = useState(false);
@@ -150,8 +150,27 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
   };
 
   return (
-    <aside className="w-[420px] bg-slate-50/30 h-full flex flex-col shrink-0 shadow-[0_0_40px_-15px_rgba(0,0,0,0.05)] relative z-20">
-      <div className="flex-1 overflow-y-auto p-6 flex flex-col bg-slate-50/20">
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 md:hidden animate-in fade-in"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      <aside className={`fixed bottom-0 left-0 w-full h-[85dvh] md:h-full md:relative md:w-[420px] bg-slate-50/30 border-t md:border-t-0 md:border-l border-slate-200 flex flex-col shrink-0 z-50 md:z-20 transform transition-transform duration-300 md:translate-y-0 rounded-t-3xl md:rounded-none md:shadow-[0_0_40px_-15px_rgba(0,0,0,0.05)] ${isMobileOpen ? 'translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.15)]' : 'translate-y-[100%] md:translate-y-0'}`}>
+        
+        {/* Mobile Drag Handle & Header */}
+        <div className="md:hidden flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-200/60 bg-white/90 backdrop-blur-md z-10 rounded-t-3xl sticky top-0 shrink-0">
+          <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto absolute left-1/2 -translate-x-1/2 top-2.5"></div>
+          <span className="text-[17px] font-black text-slate-800 tracking-tight mt-2">{activeTab.toUpperCase()}</span>
+          <button onClick={() => setIsMobileOpen(false)} className="p-1.5 mt-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition-colors cursor-pointer bg-slate-50 border border-slate-200 shadow-sm">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col bg-slate-50/20 pb-24 md:pb-6">
         
         {/* PARAPHRASE TAB */}
         {activeTab === 'paraphrase' && (
@@ -686,7 +705,8 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
         )}
 
       </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
