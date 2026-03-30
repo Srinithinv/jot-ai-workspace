@@ -19,17 +19,17 @@ const tools = [
 
 const Sidebar = ({ activeTool, setActiveTool }) => {
   return (
-    <aside className="fixed bottom-0 left-0 w-full h-[72px] md:h-screen md:w-[72px] md:static bg-white border-t md:border-t-0 md:border-r border-slate-200 flex flex-row md:flex-col items-center px-1 md:px-0 py-0 md:py-6 z-40 overflow-x-auto no-scrollbar shadow-[0_-10px_30px_rgba(0,0,0,0.05)] md:shadow-none shrink-0 transition-colors duration-500">
+    <aside className="fixed bottom-0 left-0 w-full h-[85px] md:h-screen md:w-[72px] lg:w-[260px] md:static bg-white border-t md:border-t-0 md:border-r border-slate-200 flex flex-row md:flex-col items-center lg:items-start px-0 md:px-0 py-0 md:py-6 z-40 overflow-x-auto no-scrollbar shadow-[0_-10px_30px_rgba(0,0,0,0.05)] md:shadow-none shrink-0 transition-all duration-500">
       
-      {/* Desktop Logo */}
-      <div className="hidden md:flex flex-col items-center gap-3 mb-8 cursor-pointer">
-        <div className="w-10 h-10 bg-teal-600 rounded-[12px] flex items-center justify-center shadow-lg shadow-teal-600/20">
+      {/* Desktop Logo Area */}
+      <div className="hidden md:flex flex-col lg:flex-row items-center lg:justify-start gap-4 mb-8 cursor-pointer w-full lg:px-6">
+        <div className="w-10 h-10 shrink-0 bg-teal-600 rounded-[12px] flex items-center justify-center shadow-lg shadow-teal-600/20">
           <Feather className="text-white w-5 h-5" />
         </div>
-        <span className="font-bold text-2xl text-slate-800 tracking-tight leading-none text-center">Jot AI</span>
+        <span className="font-extrabold text-[22px] text-slate-800 tracking-tight leading-none hidden lg:block">Jot AI</span>
       </div>
       
-      <nav className="flex flex-row md:flex-col gap-1 w-max md:w-full px-2 md:px-3 flex-1 items-center md:overflow-y-auto md:overflow-x-hidden pt-1 md:pt-0 pb-1 md:pb-0 no-scrollbar">
+      <nav className="flex flex-row md:flex-col gap-2 md:gap-1.5 w-max md:w-full lg:w-full px-2 md:px-2 lg:px-4 flex-1 items-center md:items-stretch overflow-x-auto md:overflow-y-auto md:overflow-x-hidden no-scrollbar pt-2 md:pt-0 pb-2 md:pb-0">
         {tools.map(tool => {
           const Icon = tool.icon;
           const isActive = activeTool === tool.id;
@@ -37,16 +37,26 @@ const Sidebar = ({ activeTool, setActiveTool }) => {
             <button
               key={tool.id}
               onClick={() => setActiveTool(tool.id)}
-              className={`relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl group transition-all duration-300 cursor-pointer border ${
+              className={`relative flex flex-col md:flex-row items-center md:justify-center lg:justify-start w-[72px] h-[64px] md:w-14 md:h-14 lg:w-full lg:h-[46px] shrink-0 rounded-2xl md:rounded-xl lg:px-4 group transition-all duration-300 cursor-pointer border md:border-transparent ${
                 isActive 
-                ? 'bg-teal-50 border-teal-100 text-teal-600 shadow-[0_4px_20px_-5px_rgba(13,148,136,0.3)] scale-[1.02] md:scale-105 z-10' 
+                ? 'bg-teal-50 border-teal-100 text-teal-600 md:shadow-[0_4px_20px_-5px_rgba(13,148,136,0.2)] md:scale-105 z-10' 
                 : 'border-transparent text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 hover:border-slate-200'
               }`}
             >
-              <Icon className={`${isActive ? 'w-5 h-5 md:w-6 md:h-6' : 'w-5 h-5 md:w-6 md:h-6 opacity-75'}`} strokeWidth={isActive ? 2.5 : 2} />
+              <Icon className="w-[22px] h-[22px] md:w-6 md:h-6 lg:w-5 lg:h-5 shrink-0" strokeWidth={isActive ? 2.5 : 2} />
               
-              {/* Desktop Hover Label */}
-              <span className="absolute left-16 px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+              {/* Mobile text below icon */}
+              <span className={`text-[10px] sm:text-[11px] font-bold mt-1.5 md:hidden leading-none tracking-tight break-words px-1 max-w-full truncate ${isActive ? 'text-teal-700' : 'text-slate-500'}`}>
+                {tool.label.split(' ')[0]}
+              </span>
+
+              {/* Desktop Expanded text next to icon */}
+              <span className={`hidden lg:block ml-3.5 text-[13px] font-bold whitespace-nowrap tracking-wide ${isActive ? 'text-teal-700' : 'text-slate-600 group-hover:text-slate-800'}`}>
+                {tool.label}
+              </span>
+
+              {/* Tablet Hover Tooltip (Only on md breakpoint) */}
+              <span className="hidden md:block lg:hidden absolute left-[68px] px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
                 {tool.label}
               </span>
             </button>
@@ -55,16 +65,22 @@ const Sidebar = ({ activeTool, setActiveTool }) => {
       </nav>
 
       {/* Desktop Bottom Actions / Mobile Scroll End Actions */}
-      <div className="flex flex-row md:flex-col items-center mt-0 md:mt-auto px-2 md:px-4 w-max md:w-full border-l md:border-l-0 md:border-t border-slate-200 py-0 md:pt-4 md:pb-4 gap-1 md:gap-0 shrink-0 h-full md:h-auto">
-        <div className="w-12 h-12 md:w-12 md:h-12 md:mx-auto text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-xl transition-colors flex items-center justify-center cursor-pointer group relative md:mb-2 shrink-0">
-          <FileText className="w-5 h-5 md:w-5 md:h-5" />
-          <span className="absolute left-16 px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">My Docs</span>
+      <div className="flex flex-row md:flex-col items-center lg:items-stretch mt-0 md:mt-auto px-2 md:px-2 lg:px-4 w-max md:w-full border-l md:border-l-0 md:border-t border-slate-200 py-0 md:pt-4 md:pb-2 gap-2 md:gap-1.5 shrink-0 h-full md:h-auto">
+        <div className="w-[72px] h-[64px] md:w-12 md:h-12 lg:w-full lg:h-[46px] md:mx-auto lg:mx-0 text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-2xl md:rounded-xl transition-colors flex flex-col md:flex-row items-center justify-center lg:justify-start lg:px-4 cursor-pointer group relative md:mb-1 shrink-0">
+          <FileText className="w-[22px] h-[22px] md:w-5 md:h-5 shrink-0" />
+          <span className="text-[10px] md:hidden mt-1.5 font-bold">Docs</span>
+          <span className="hidden lg:block ml-3.5 text-[13px] font-bold whitespace-nowrap tracking-wide">My Documents</span>
+          <span className="absolute left-[68px] px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block lg:hidden group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">My Docs</span>
         </div>
-        <button onClick={async () => { await signOut(auth); localStorage.removeItem('jot_users'); window.location.href = '/login'; }} className="w-12 h-12 md:w-12 md:h-12 md:mx-auto text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors flex items-center justify-center cursor-pointer group relative shrink-0">
-          <LogOut className="w-5 h-5 md:w-5 md:h-5" />
-          <span className="absolute left-16 px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Logout</span>
+        
+        <button onClick={async () => { await signOut(auth); localStorage.removeItem('jot_users'); window.location.href = '/login'; }} className="w-[72px] h-[64px] md:w-12 md:h-12 lg:w-full lg:h-[46px] md:mx-auto lg:mx-0 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-2xl md:rounded-xl transition-colors flex flex-col md:flex-row items-center justify-center lg:justify-start lg:px-4 cursor-pointer group relative shrink-0">
+          <LogOut className="w-[22px] h-[22px] md:w-5 md:h-5 shrink-0" />
+          <span className="text-[10px] md:hidden mt-1.5 font-bold">Logout</span>
+          <span className="hidden lg:block ml-3.5 text-[13px] font-bold whitespace-nowrap tracking-wide text-rose-500">Logout</span>
+          <span className="absolute left-[68px] px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block lg:hidden group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Logout</span>
         </button>
       </div>
+      
     </aside>
   );
 };
