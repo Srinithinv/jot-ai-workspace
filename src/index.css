@@ -27,3 +27,12 @@
 /* Modal and Overlays */
 .dark-theme .bg-white\/90 { background-color: rgba(30, 41, 59, 0.9) !important; }
 .dark-theme input:not([type="checkbox"]), .dark-theme select, .dark-theme textarea { background-color: #0f172a !important; color: #f8fafc !important; border-color: #334155 !important; }
+
+/* Hide scrollbars completely to simulate clean Native Mobile UI */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

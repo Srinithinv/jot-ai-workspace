@@ -56,13 +56,13 @@ const Sidebar = ({ activeTool, setActiveTool }) => {
 
       {/* Desktop Bottom Actions / Mobile Scroll End Actions */}
       <div className="flex flex-row md:flex-col items-center mt-0 md:mt-auto px-2 md:px-4 w-max md:w-full border-l md:border-l-0 md:border-t border-slate-200 py-0 md:pt-4 md:pb-4 gap-1 md:gap-0 shrink-0 h-full md:h-auto">
-        <div className="w-12 h-12 md:w-full md:h-auto md:p-3 text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-xl transition-colors flex items-center justify-center md:justify-start gap-0 md:gap-3 cursor-pointer group relative md:mb-2">
-          <FileText className="w-5 h-5 md:w-[18px] md:h-[18px]" />
-          <span className="hidden md:inline text-[13px] font-semibold">My Docs</span>
+        <div className="w-12 h-12 md:w-12 md:h-12 md:mx-auto text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-xl transition-colors flex items-center justify-center cursor-pointer group relative md:mb-2 shrink-0">
+          <FileText className="w-5 h-5 md:w-5 md:h-5" />
+          <span className="absolute left-16 px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">My Docs</span>
         </div>
-        <button onClick={async () => { await signOut(auth); localStorage.removeItem('jot_users'); window.location.href = '/login'; }} className="w-12 h-12 md:w-full md:h-auto md:p-3 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors flex items-center justify-center md:justify-start gap-0 md:gap-3 cursor-pointer">
-          <LogOut className="w-5 h-5 md:w-[18px] md:h-[18px]" />
-          <span className="hidden md:inline text-[13px] font-semibold">Logout</span>
+        <button onClick={async () => { await signOut(auth); localStorage.removeItem('jot_users'); window.location.href = '/login'; }} className="w-12 h-12 md:w-12 md:h-12 md:mx-auto text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors flex items-center justify-center cursor-pointer group relative shrink-0">
+          <LogOut className="w-5 h-5 md:w-5 md:h-5" />
+          <span className="absolute left-16 px-3 py-1.5 bg-slate-800 text-white text-[12px] font-bold rounded-lg shadow-xl opacity-0 hidden md:block group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Logout</span>
         </button>
       </div>
     </aside>
