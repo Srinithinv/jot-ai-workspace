@@ -22,21 +22,21 @@ Do NOT return markdown formatting (no \`\`\`json), just the raw JSON object.
 
 Text: "${text}"`;
 
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
 
 export const humanizeText = async (text, burstinessLevel) => {
   const prompt = `Humanize this text to bypass AI detectors. Use a burstiness level corresponding to ${burstinessLevel}% (100% means extremely varied sentence lengths, natural phrasing, and human tone). Just return the humanized text directly without extra commentary.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text;
 };
 
 // --- THE 5 NEW APIS ---
 export const expandText = async (text) => {
   const prompt = `You are an expert AI Content Expander. Take the following short text and expand it into a beautifully detailed, professional paragraph with examples and rich vocabulary. Return ONLY the expanded text, no markdown formatting.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.trim();
 };
 
@@ -51,14 +51,14 @@ Return ONLY this exact JSON format:
 Do NOT return markdown formatting, just the raw JSON array.
 
 Text: "${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
 
 export const autoComplete = async (text) => {
   const prompt = `You are an expert Ghostwriter. Read the following text, understand its context and flow, and seamlessly generate the next 3 sentences to continue it. Return ONLY the generated continuation text, no markdown formatting, no commentary.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.trim();
 };
 
@@ -73,7 +73,7 @@ Return ONLY a strictly formatted JSON object matching this structure:
 Do NOT return markdown formatting (no \`\`\`json), just the raw JSON object.
 
 Text: "${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
@@ -89,7 +89,7 @@ Return ONLY a strictly formatted JSON object matching this structure:
 Do NOT return markdown formatting (no \`\`\`json), just the raw JSON object.
 
 Text: "${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
@@ -115,14 +115,14 @@ Do NOT return markdown formatting (no \`\`\`json), just the raw JSON object.
 
 Text: "${text}"`;
 
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
 
 export const fixPlagiarism = async (text) => {
   const prompt = `You are an expert AI Legal Editor. The following sentence has been flagged for plagiarism. Your job is to completely rewrite this sentence so that it retains the strict original meaning but uses entirely different vocabulary, structure, and pacing to ensure it is 100% unique and undetectable by plagiarism scanners. Return ONLY the directly rewritten text, no markdown formatting.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.trim();
 };
 
@@ -143,25 +143,25 @@ Do NOT return markdown formatting (no \`\`\`json), just the raw JSON object.
 
 Text: "${text}"`;
 
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   const rawText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
   return JSON.parse(rawText);
 };
 
 export const summarizeText = async (text, length) => {
   const prompt = `You are an expert Summarizer. Summarize the following text. Make it a ${length} summary. Return ONLY the summarized text, no markdown formatting.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.trim();
 };
 
 export const translateText = async (text, language) => {
   const prompt = `You are an expert Translator. Translate the following text into ${language}. Return ONLY the translated text, no markdown formatting.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.trim();
 };
 
 export const magicFormat = async (text) => {
   const prompt = `Take this text and format it beautifully. Automatically separate logical chunks into detailed paragraphs, add informative H2 (<h2>) and H3 (<h3>) headings where appropriate, and use bullet points (<ul><li>) if there are lists. Ensure it reads like a premium, well-structured article. Return ONLY raw valid HTML logic restricted strictly to <p>, <h2>, <h3>, <ul>, <ol>, <li>, <strong>, <em>. Do NOT use markdown or any \`\`\`html code wrappers.\n\nText:\n"${text}"`;
-  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  const response = await ai.models.generateContent({ model: 'gemini-1.5-flash', contents: prompt });
   return response.text.replace(/```html/g, '').replace(/```/g, '').trim();
 };
