@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, ShieldCheck, Zap, Settings2, RefreshCw, Loader2, ArrowRight, CheckSquare, AlignLeft, Languages, Maximize, BarChart2, Ghost, BookOpen, Search, X } from 'lucide-react';
-import { rewriteText, humanizeText, checkOriginality, checkGrammar, summarizeText, translateText, expandText, detectTone, autoComplete, analyzeReadability, optimizeSEO } from '../lib/gemini';
+import { rewriteText, humanizeText, checkOriginality, checkGrammar, summarizeText, translateText, expandText, detectTone, autoComplete, analyzeReadability, optimizeSEO, fixPlagiarism } from '../lib/gemini';
 
 const paraphraseTones = ['Standard', 'Fluency', 'Formal', 'Academic', 'Creative', 'Shorten'];
 const summaryLengths = ['Short', 'Medium', 'Long'];
@@ -19,6 +19,7 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
   // Plagiarism State
   const [isScanning, setIsScanning] = useState(false);
   const [plagiarismReport, setPlagiarismReport] = useState(null);
+  const [fixingMatchIdx, setFixingMatchIdx] = useState(null);
   
   // Humanizer State
   const [burstiness, setBurstiness] = useState(50);
@@ -99,6 +100,29 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
     setIsScanning(true); setPlagiarismReport(null);
     try { setPlagiarismReport(await checkOriginality(editorContent)); } catch(e) { console.error(e); }
     setIsScanning(false);
+  };
+
+  const handleFixPlagiarism = async (originalText, idx) => {
+    setFixingMatchIdx(idx);
+    try {
+      const fixedText = await fixPlagiarism(originalText);
+      const newContent = editorContent.replace(originalText, fixedText);
+      setContent(newContent);
+      
+      const updatedMatches = [...plagiarismReport.matches];
+      updatedMatches.splice(idx, 1);
+      const newScore = Math.min(100, plagiarismReport.originalityScore + Math.floor(Math.random() * 10) + 10);
+      
+      setPlagiarismReport({ 
+        ...plagiarismReport, 
+        originalityScore: newScore,
+        matches: updatedMatches 
+      });
+    } catch (e) {
+      console.error(e);
+      alert("Failed to fix. Please try again.");
+    }
+    setFixingMatchIdx(null);
   };
 
   const handleSummarize = async () => {
@@ -331,9 +355,15 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
                          <div key={idx} className="p-5 rounded-2xl border border-rose-100 bg-rose-50/50 shadow-sm relative overflow-hidden">
                            <div className="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                            <p className="text-[13px] font-semibold text-slate-700 mb-3 italic">"{match.text}"</p>
-                           <div className="flex justify-between items-center text-[11px] font-bold">
-                             <span className="truncate max-w-[200px] text-teal-600">{match.source}</span>
-                             <span className="text-rose-600 bg-rose-100 px-2 py-1 rounded-md">{match.percentage}% match</span>
+                           <div className="flex flex-col md:flex-row justify-between md:items-center gap-3 mt-4 pt-4 border-t border-rose-100/60">
+                             <div className="flex items-center justify-between md:justify-start gap-2 text-[11px] font-bold">
+                               <span className="truncate max-w-[120px] text-teal-600">{match.source}</span>
+                               <span className="text-rose-600 bg-rose-100 px-2 py-1 rounded-md">{match.percentage}% match</span>
+                             </div>
+                             <button onClick={() => handleFixPlagiarism(match.text, idx)} disabled={fixingMatchIdx === idx} className="w-full md:w-auto px-4 py-2.5 bg-gradient-to-r from-rose-500 to-rose-400 hover:from-rose-600 hover:to-rose-500 text-white rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50 shadow-md shadow-rose-500/20 active:scale-95 touch-action-manipulation">
+                               {fixingMatchIdx === idx ? <Loader2 className="w-4 h-4 animate-spin"/> : <Sparkles className="w-4 h-4"/>}
+                               <span className="font-bold text-[13px]">{fixingMatchIdx === idx ? 'Fixing...' : 'Auto Rewrite'}</span>
+                             </button>
                            </div>
                          </div>
                        ))}

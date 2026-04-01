@@ -120,6 +120,12 @@ Text: "${text}"`;
   return JSON.parse(rawText);
 };
 
+export const fixPlagiarism = async (text) => {
+  const prompt = `You are an expert AI Legal Editor. The following sentence has been flagged for plagiarism. Your job is to completely rewrite this sentence so that it retains the strict original meaning but uses entirely different vocabulary, structure, and pacing to ensure it is 100% unique and undetectable by plagiarism scanners. Return ONLY the directly rewritten text, no markdown formatting.\n\nText:\n"${text}"`;
+  const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+  return response.text.trim();
+};
+
 export const checkGrammar = async (text) => {
   const prompt = `You are an expert Grammar Checker. Analyze the following text for spelling mistakes, grammatical errors, and awkward phrasing.
 Return ONLY a strictly formatted JSON object matching this structure:
