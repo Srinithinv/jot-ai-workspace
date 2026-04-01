@@ -17,7 +17,7 @@ const tools = [
   { id: 'seo', icon: Search, label: 'SEO Optimizer' },
 ];
 
-const Sidebar = ({ activeTool, setActiveTool }) => {
+const Sidebar = ({ activeTool, setActiveTool, setIsDocsOpen }) => {
   return (
     <aside className="fixed bottom-0 left-0 w-full h-[85px] md:h-screen md:w-[72px] lg:w-[260px] md:static bg-white border-t md:border-t-0 md:border-r border-slate-200 flex flex-col items-center lg:items-start px-0 md:px-0 py-0 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] md:shadow-none shrink-0 transition-all duration-500 overflow-hidden">
       
@@ -73,7 +73,7 @@ const Sidebar = ({ activeTool, setActiveTool }) => {
 
         {/* Docs & Logout Commands */}
         <div className="flex flex-row md:flex-col gap-2 md:gap-1.5 w-max md:w-full shrink-0 pr-4 md:pr-0 md:pb-6">
-          <div className="w-[72px] h-[64px] md:w-12 md:h-12 lg:w-full lg:h-[46px] md:mx-auto lg:mx-0 text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-2xl md:rounded-xl transition-colors flex flex-col md:flex-row items-center justify-center lg:justify-start lg:px-4 cursor-pointer group relative shrink-0">
+          <div onClick={() => setIsDocsOpen(true)} className="w-[72px] h-[64px] md:w-12 md:h-12 lg:w-full lg:h-[46px] md:mx-auto lg:mx-0 text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 rounded-2xl md:rounded-xl transition-colors flex flex-col md:flex-row items-center justify-center lg:justify-start lg:px-4 cursor-pointer group relative shrink-0">
             <FileText className="w-[22px] h-[22px] md:w-5 md:h-5 shrink-0" />
             <span className="text-[10px] md:hidden mt-1.5 font-bold">Docs</span>
             <span className="hidden lg:block ml-3.5 text-[13px] font-bold whitespace-nowrap tracking-wide">My Documents</span>

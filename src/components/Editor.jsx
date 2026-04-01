@@ -15,9 +15,7 @@ const quillModules = {
   ]
 };
 
-const Editor = ({ content, setContent, handleSelection, quillRef, isDark, setIsDark }) => {
-  const [docTitle, setDocTitle] = useState('Untitled Document');
-  
+const Editor = ({ content, setContent, docTitle, setDocTitle, handleSelection, quillRef, isDark, setIsDark }) => {
   // Modal State
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [pdfSettings, setPdfSettings] = useState({
