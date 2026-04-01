@@ -58,7 +58,8 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
 
   // --- HANDLERS ---
   const handleCheckGrammar = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsCheckingGrammar(true); setGrammarReport(null);
     try { setGrammarReport(await checkGrammar(editorContent)); } catch(e) { console.error(e); }
     setIsCheckingGrammar(false);
@@ -93,7 +94,8 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
   };
 
   const handleScan = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsScanning(true); setPlagiarismReport(null);
     try { setPlagiarismReport(await checkOriginality(editorContent)); } catch(e) { console.error(e); }
     setIsScanning(false);
@@ -122,28 +124,32 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
   };
 
   const handleDetectTone = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsDetectingTone(true); setToneResult(null);
     try { setToneResult(await detectTone(editorContent)); } catch(e) { console.error(e); }
     setIsDetectingTone(false);
   };
 
   const handleGhostwriter = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsGhostwriting(true); setGhostResult('');
     try { setGhostResult(await autoComplete(editorContent)); } catch(e) { console.error(e); }
     setIsGhostwriting(false);
   };
 
   const handleReadability = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsAnalyzingReadability(true); setReadabilityResult(null);
     try { setReadabilityResult(await analyzeReadability(editorContent)); } catch(e) { console.error(e); }
     setIsAnalyzingReadability(false);
   };
 
   const handleSEO = async () => {
-    if (!editorContent.trim()) return alert("Write something in the document canvas first!");
+    const rawText = editorContent.replace(/<[^>]*>?/gm, '').trim();
+    if (!rawText) return alert("Write something in the document canvas first!");
     setIsOptimizingSEO(true); setSeoResult(null);
     try { setSeoResult(await optimizeSEO(editorContent)); } catch(e) { console.error(e); }
     setIsOptimizingSEO(false);
