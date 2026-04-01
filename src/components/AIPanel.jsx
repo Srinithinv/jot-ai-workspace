@@ -189,13 +189,13 @@ const AIPanel = ({ activeTab, selectedText, editorContent, onReplace, setContent
         />
       )}
 
-      <aside className={`fixed bottom-0 left-0 w-full h-[85dvh] md:h-full md:relative md:w-[420px] bg-slate-50/30 border-t md:border-t-0 md:border-l border-slate-200 flex flex-col shrink-0 z-50 md:z-20 transform transition-transform duration-300 md:translate-y-0 rounded-t-3xl md:rounded-none md:shadow-[0_0_40px_-15px_rgba(0,0,0,0.05)] ${isMobileOpen ? 'translate-y-0 shadow-[0_-10px_40px_rgba(0,0,0,0.15)]' : 'translate-y-[100%] md:translate-y-0'}`}>
+      <aside className={`fixed bottom-0 left-0 w-full h-[85dvh] md:h-full md:relative md:w-[420px] bg-white md:bg-slate-50/30 border-t md:border-t-0 md:border-l border-slate-200 flex flex-col shrink-0 z-50 md:z-20 transform transition-transform duration-500 md:translate-y-0 rounded-t-3xl md:rounded-none md:shadow-[0_0_40px_-15px_rgba(0,0,0,0.05)] ${isMobileOpen ? 'translate-y-0 shadow-[0_-20px_50px_rgba(0,0,0,0.2)]' : 'translate-y-full md:translate-y-0 visible md:visible'}`}>
         
         {/* Mobile Drag Handle & Header */}
-        <div className="md:hidden flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-200/60 bg-white/90 backdrop-blur-md z-10 rounded-t-3xl sticky top-0 shrink-0">
-          <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto absolute left-1/2 -translate-x-1/2 top-2.5"></div>
+        <div className="md:hidden flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100 bg-white/95 backdrop-blur-md z-10 rounded-t-3xl sticky top-0 shrink-0">
+          <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto absolute left-1/2 -translate-x-1/2 top-3"></div>
           <span className="text-[17px] font-black text-slate-800 tracking-tight mt-2">{activeTab.toUpperCase()}</span>
-          <button onClick={() => setIsMobileOpen(false)} className="p-1.5 mt-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition-colors cursor-pointer bg-slate-50 border border-slate-200 shadow-sm">
+          <button onClick={() => setIsMobileOpen(false)} className="p-1.5 mt-2 text-slate-600 hover:text-slate-900 bg-slate-50 border border-slate-200 rounded-full transition-all cursor-pointer shadow-sm active:scale-95 touch-action-manipulation">
             <X className="w-5 h-5" />
           </button>
         </div>

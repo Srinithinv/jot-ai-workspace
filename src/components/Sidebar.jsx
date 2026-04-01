@@ -33,7 +33,7 @@ const Sidebar = ({ activeTool, setActiveTool, setIsDocsOpen }) => {
       <div className="w-full md:w-auto lg:w-full flex-1 flex flex-row md:flex-col overflow-x-auto md:overflow-x-hidden md:overflow-y-auto no-scrollbar scroll-smooth px-2 lg:px-4 items-center md:items-stretch py-2 md:py-0">
         
         {/* 11 Main Tools */}
-        <nav className="flex flex-row md:flex-col gap-2 md:gap-1.5 w-max md:w-full items-center md:items-stretch h-full md:h-auto shrink-0">
+        <nav className="flex flex-row md:flex-col gap-2 md:gap-1.5 w-max md:w-full items-center md:items-stretch h-full md:h-auto shrink-0 flex-nowrap overflow-x-visible">
           {tools.map(tool => {
             const Icon = tool.icon;
             const isActive = activeTool === tool.id;
@@ -41,7 +41,7 @@ const Sidebar = ({ activeTool, setActiveTool, setIsDocsOpen }) => {
               <button
                 key={tool.id}
                 onClick={() => setActiveTool(tool.id)}
-                className={`relative flex flex-col md:flex-row items-center md:justify-center lg:justify-start w-[72px] h-[64px] md:w-14 md:h-14 lg:w-full lg:h-[46px] shrink-0 rounded-2xl md:rounded-xl lg:px-4 group transition-all duration-300 cursor-pointer border md:border-transparent ${
+                className={`relative flex flex-col md:flex-row items-center md:justify-center lg:justify-start w-[68px] h-[64px] md:w-14 md:h-14 lg:w-full lg:h-[46px] shrink-0 rounded-2xl md:rounded-xl lg:px-4 group transition-all duration-300 cursor-pointer border md:border-transparent ${
                   isActive 
                   ? 'bg-teal-50 border-teal-100 text-teal-600 md:shadow-[0_4px_20px_-5px_rgba(13,148,136,0.2)] md:scale-105 z-10' 
                   : 'border-transparent text-slate-400 hover:text-slate-700 hover:bg-slate-100/50 hover:border-slate-200'

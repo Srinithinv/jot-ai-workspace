@@ -173,11 +173,11 @@ const Editor = ({ content, setContent, docTitle, setDocTitle, handleSelection, q
       {/* Editor Header */}
       <div className="h-[72px] border-b border-slate-200 px-4 md:px-8 flex items-center justify-between bg-white shrink-0 transition-colors duration-500 w-full overflow-hidden">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-600 shadow-sm relative z-0">
-            <FileText className="w-5 h-5 relative z-10" />
+          <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-600 shadow-sm relative z-0 shrink-0">
+            <FileText className="w-4 h-4 md:w-5 md:h-5 relative z-10" />
             <div className="absolute inset-0 bg-white opacity-[0.03] dark:opacity-10 z-0 rounded-xl"></div>
           </div>
-          <div className="flex flex-col overflow-hidden max-w-[120px] sm:max-w-xs shrink-1">
+          <div className="flex flex-col overflow-hidden max-w-[80px] sx:max-w-[120px] sm:max-w-xs shrink-1">
             <input 
               type="text" 
               value={docTitle}
@@ -245,6 +245,8 @@ const Editor = ({ content, setContent, docTitle, setDocTitle, handleSelection, q
           border-bottom: 1px solid #f1f5f9 !important;
           padding: 8px 12px !important;
           background: transparent;
+          display: flex;
+          flex-wrap: wrap;
         }
         @media (min-width: 768px) {
            .ql-toolbar.ql-snow {
@@ -286,8 +288,8 @@ const Editor = ({ content, setContent, docTitle, setDocTitle, handleSelection, q
 
       {/* PDF EXPORT MODAL */}
       {showPdfModal && (
-        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in duration-200">
-           <div className="bg-white w-[480px] rounded-3xl shadow-2xl p-8 animate-in zoom-in-95 duration-200">
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in duration-200 px-4">
+           <div className="bg-white w-full max-w-[480px] rounded-3xl shadow-2xl p-6 md:p-8 animate-in zoom-in-95 duration-200">
               <div className="flex justify-between items-center mb-6">
                  <h2 className="text-2xl font-black text-slate-800 tracking-tight">PDF Settings</h2>
                  <button onClick={() => setShowPdfModal(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer">

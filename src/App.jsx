@@ -113,7 +113,7 @@ function Workspace({ user }) {
         setActiveTool={(id) => { setActiveTool(id); setIsMobileAIPanelOpen(true); }} 
         setIsDocsOpen={setIsDocsOpen}
       />
-      <div className="flex-1 flex overflow-hidden mb-[72px] md:mb-0 relative py-0 min-h-0">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden mb-[85px] md:mb-0 relative py-0 min-h-0 w-full max-w-full">
         <Editor 
           content={content} 
           setContent={setContent} 
